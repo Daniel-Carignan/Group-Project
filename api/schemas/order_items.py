@@ -5,19 +5,19 @@ from .orders import Order
 from .dishes import Dishes
 
 
-class RecipeBase(BaseModel):
+class OrderItemsBase(BaseModel):
     pass
 
 
-class RecipeCreate(RecipeBase):
+class OrderItemsCreate(OrderItemsBase):
     order_id: int
     dish_id: int
 
-class RecipeUpdate(BaseModel):
+class OrderItemsUpdate(BaseModel):
     order_id: Optional[int] = None
     dish_id: Optional[int] = None
 
-class Recipe(RecipeBase):
+class OrderItems(OrderItemsBase):
     id: int
     orders: list[Order] = None
     dishes: list[Dishes] = None
