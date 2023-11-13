@@ -1,15 +1,15 @@
-from . import orders, order_details, dishes, order_items, dish_ingredients, feedback, payments, promotions, used_promotions
+from . import dish, dish_ingredient, order, order_detail, order_item, feedback, payment, promotion, used_promotion
 
 from ..dependencies.database import engine
 
 
 def index():
-    orders.Base.metadata.create_all(engine)
-    order_details.Base.metadata.create_all(engine)
-    order_items.Base.metadata.create_all(engine)
-    dishes.Base.metadata.create_all(engine)
-    dish_ingredients.Base.metadata.create_all(engine)
+    order.Base.metadata.create_all(engine)
+    order_detail.Base.metadata.create_all(engine)
+    order_item.Base.metadata.create_all(engine)
+    dish.Base.metadata.create_all(engine)
+    dish_ingredient.Base.metadata.create_all(engine)
     feedback.Base.metadata.create_all(engine)
-    payments.Base.metadata.create_all(engine)
-    promotions.Base.metadata.create_all(engine)
-    used_promotions.Base.metadata.create_all(engine)
+    payment.Base.metadata.create_all(engine)
+    promotion.Base.metadata.create_all(engine)
+    used_promotion.Base.metadata.create_all(engine)

@@ -3,12 +3,9 @@ from sqlalchemy.orm import relationship
 from ..dependencies.database import Base
 
 
-class UsedPromotions(Base):
-    __tablename__ = "used_promotions"
+class OrderItem(Base):
+    __tablename__ = "order_items"
 
     id = Column(Integer, primary_key=True, nullable=False, index=True, autoincrement=True)
     order_id = Column(Integer, ForeignKey("orders.id"), nullable=False)
-    promotion_id = Column(Integer, ForeignKey("promotions.id"), nullable=False)
-
-    order = relationship("Order", back_populates="used_promotions")
-    promotions = relationship("Promotions", back_populates="used_promotions")
+    dish_id = Column(Integer, ForeignKey("dishes.id"), nullable=False)

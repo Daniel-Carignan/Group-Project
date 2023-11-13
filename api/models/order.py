@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, DECIMAL, DATETIME
 from datetime import datetime
+from sqlalchemy.orm import relationship
 from ..dependencies.database import Base
 
 
@@ -11,5 +12,9 @@ class Order(Base):
     order_status = Column(String(255)) # change to an enum value later
     order_total = Column(DECIMAL(4, 2))
     order_date = Column(DATETIME, nullable=False, server_default=str(datetime.now()))
-
-
+    
+    feedback = relationship("Feedback", backref="Order")
+    order_detail = relationship("OrderDetail", backref="Order")
+    items = relationship("OrderItem", backref="Order")
+    payment = relationship("Payment", backref="Order")
+    used_promotion = relationship("UsedPromotion", backref="Order")
