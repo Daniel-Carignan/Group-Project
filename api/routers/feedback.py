@@ -5,8 +5,8 @@ from ..schemas import feedback as schema
 from ..dependencies.database import engine, get_db
 
 router = APIRouter(
-    tags=['Dishes'],
-    prefix="/dishes"
+    tags=['Feedback'],
+    prefix="/feedback"
 )
 
 
