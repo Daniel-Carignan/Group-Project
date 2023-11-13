@@ -15,7 +15,7 @@ class DishesCreate(DishesBase):
 class DishesUpdate(BaseModel):
     dish_name: Optional[str] = None
     dish_description: Optional[str] = None
-    dish_price = Optional[float] = None
+    dish_price: Optional[float] = None
 
 
 class Dishes(DishesBase):
