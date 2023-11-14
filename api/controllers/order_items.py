@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 def create(db: Session, request):
-    new_item = model.OrderItems(
+    new_item = model.OrderItem(
         order_id=request.order_id,
         dish_id=request.dish_id
     )
@@ -23,7 +23,7 @@ def create(db: Session, request):
 
 def read_all(db: Session):
     try:
-        result = db.query(model.OrderItems).all()
+        result = db.query(model.OrderItem).all()
     except SQLAlchemyError as e:
         error = str(e.__dict__['orig'])
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
@@ -32,7 +32,7 @@ def read_all(db: Session):
 
 def read_one(db: Session, item_id):
     try:
-        item = db.query(model.OrderItems).filter(model.OrderItems.id == item_id).first()
+        item = db.query(model.OrderItem).filter(model.OrderItem.id == item_id).first()
         if not item:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Id not found!")
     except SQLAlchemyError as e:
@@ -43,7 +43,7 @@ def read_one(db: Session, item_id):
 
 def update(db: Session, item_id, request):
     try:
-        item = db.query(model.OrderItems).filter(model.OrderItems.id == item_id)
+        item = db.query(model.OrderItem).filter(model.OrderItem.id == item_id)
         if not item.first():
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Id not found!")
         update_data = request.dict(exclude_unset=True)
@@ -57,7 +57,7 @@ def update(db: Session, item_id, request):
 
 def delete(db: Session, item_id):
     try:
-        item = db.query(model.OrderItems).filter(model.OrderItems.id == item_id)
+        item = db.query(model.OrderItem).filter(model.OrderItem.id == item_id)
         if not item.first():
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Id not found!")
         item.delete(synchronize_session=False)
