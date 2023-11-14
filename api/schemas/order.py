@@ -29,11 +29,11 @@ class Order(OrderBase):
     id: int
     order_date: datetime
     
-    feedback: list[Feedback]
+    feedback: Optional[Feedback]
     order_detail: OrderDetail
     items: list[OrderItem]
     payment: Payment
-    used_promotion: UsedPromotion
+    used_promotion: Optional[UsedPromotion]
     
     
     class ConfigDict:
