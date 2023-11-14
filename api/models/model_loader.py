@@ -1,5 +1,4 @@
 from . import dish, dish_ingredient, order, order_detail, order_item, feedback, payment, promotion, used_promotion
-
 from ..dependencies.database import engine
 
 

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from fastapi import HTTPException, status, Response, Depends
-from ..models import used_promotions as model
+from fastapi import HTTPException, status, Response
+from ..models import used_promotion as model
 from sqlalchemy.exc import SQLAlchemyError
 
 

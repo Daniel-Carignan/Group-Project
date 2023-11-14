@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from fastapi import HTTPException, status, Response, Depends
-from ..models import dishes as model
+from fastapi import HTTPException, status, Response
+from ..models import dish as model
 from sqlalchemy.exc import SQLAlchemyError
 
 

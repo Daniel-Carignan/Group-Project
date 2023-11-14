@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Response, Depends
-from ..models import dish_ingredients as model
+from ..models import dish_ingredient as model
 from sqlalchemy.exc import SQLAlchemyError
 
 

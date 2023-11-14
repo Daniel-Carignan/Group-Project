@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from fastapi import HTTPException, status, Response, Depends
-from ..models import order_items as model
+from fastapi import HTTPException, status, Response
+from ..models import order_item as model
 from sqlalchemy.exc import SQLAlchemyError
 
 
