@@ -1,16 +1,15 @@
 from typing import Optional
 from pydantic import BaseModel
-from .orders import Order
-
 
 class OrderDetailBase(BaseModel):
+    order_id: int
     first_name: str
     last_name: str
     customer_address: str
 
 
 class OrderDetailCreate(OrderDetailBase):
-    order_id: int
+    pass
 
 
 class OrderDetailUpdate(BaseModel):
@@ -22,11 +21,6 @@ class OrderDetailUpdate(BaseModel):
 
 class OrderDetail(OrderDetailBase):
     id: int
-    order_id: int
-    first_name: str
-    last_name: str
-    customer_address: str
-    orders: list[Order] = None
 
     class ConfigDict:
         from_attributes = True

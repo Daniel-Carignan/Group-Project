@@ -1,27 +1,21 @@
 from typing import Optional
 from pydantic import BaseModel
-from .orders import Order
-from .promotions import Promotions
 
-
-class UsedPromotionsBase(BaseModel):
+class UsedPromotionBase(BaseModel):
+    order_id: int
+    promotion_id: int
     pass
 
 
-class UsedPromotionsCreate(UsedPromotionsBase):
-    order_id: int
-    promotion_id: int
+class UsedPromotionCreate(UsedPromotionBase):
+    pass
 
-class UsedPromotionsUpdate(BaseModel):
+class UsedPromotionUpdate(BaseModel):
     order_id: Optional[int] = None
     promotion_id: Optional[int] = None
 
-class UsedPromotions(UsedPromotionsBase):
+class UsedPromotion(UsedPromotionBase):
     id: int
-    order_id: int
-    promotion_id: int
-    orders: list[Order] = None
-    promotions: list[Promotions] = None
 
     class ConfigDict:
         from_attributes = True

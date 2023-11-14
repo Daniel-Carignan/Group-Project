@@ -1,16 +1,15 @@
 from typing import Optional
 from pydantic import BaseModel
-from .orders import Order
-
 
 
 class FeedbackBase(BaseModel):
+    order_id: int
     rating: int
     comments: str
 
 
 class FeedbackCreate(FeedbackBase):
-    order_id: int
+    pass
 
 
 class FeedbackUpdate(BaseModel):
@@ -20,11 +19,6 @@ class FeedbackUpdate(BaseModel):
 
 class Feedback(FeedbackBase):
     id: int
-    order_id: int
-    rating: int
-    comments: str
-    orders: list[Order] = None
-
 
     class ConfigDict:
         from_attributes = True
