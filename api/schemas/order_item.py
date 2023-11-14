@@ -1,5 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel
+from .dish import Dish
 
 class OrderItemBase(BaseModel):
     order_id: int
@@ -14,6 +15,7 @@ class OrderItemUpdate(BaseModel):
 
 class OrderItem(OrderItemBase):
     id: int
+    dish: Dish
 
     class ConfigDict:
         from_attributes = True

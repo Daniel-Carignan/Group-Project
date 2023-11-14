@@ -1,5 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer
 from ..dependencies.database import Base
+from sqlalchemy.orm import relationship
 
 
 class OrderItem(Base):
@@ -8,3 +9,5 @@ class OrderItem(Base):
     id = Column(Integer, primary_key=True, nullable=False, index=True, autoincrement=True)
     order_id = Column(Integer, ForeignKey("orders.id"), nullable=False)
     dish_id = Column(Integer, ForeignKey("dishes.id"), nullable=False)
+    
+    dish = relationship("Dish", backref="OrderItem")
