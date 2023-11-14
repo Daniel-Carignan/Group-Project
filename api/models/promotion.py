@@ -3,7 +3,7 @@ from ..dependencies.database import Base
 
 
 class Promotion(Base):
-    __tablename__ = "promotions"
+    __tablename__ = "promotion"
 
     id = Column(Integer, primary_key=True, nullable=False, index=True, autoincrement=True)
     promo_code = Column(String(255))

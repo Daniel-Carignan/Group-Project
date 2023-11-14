@@ -5,7 +5,7 @@ from .feedback import Feedback
 from .order_detail import OrderDetail
 from .order_item import OrderItem
 from .payment import Payment
-from .used_promotions import UsedPromotion
+from .used_promotion import UsedPromotion
 
 
 class OrderBase(BaseModel):

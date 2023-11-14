@@ -2,20 +2,20 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class PromotionsBase(BaseModel):
+class PromotionBase(BaseModel):
     promo_code: str
     discount: float
 
 
-class PromotionsCreate(PromotionsBase):
+class PromotionCreate(PromotionBase):
     pass
 
-class PromotionsUpdate(BaseModel):
+class PromotionUpdate(BaseModel):
     promo_code: Optional[str] = None
     discount: Optional[float] = None
 
 
-class Promotions(PromotionsBase):
+class Promotion(PromotionBase):
     id: int
     promo_code: str
     discount: float

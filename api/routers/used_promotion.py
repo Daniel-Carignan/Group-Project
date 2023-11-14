@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, FastAPI, status, Response
 from sqlalchemy.orm import Session
 from ..controllers import used_promotion as controller
-from ..schemas import used_promotions as schema
+from ..schemas import used_promotion as schema
 from ..dependencies.database import engine, get_db
 
 router = APIRouter(
