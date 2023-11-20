@@ -58,10 +58,30 @@ def update(db: Session, item_id, request):
 
 def delete(db: Session, item_id):
     try:
-        item = db.query(model.Order).filter(model.Order.id == item_id)
-        if not item.first():
+        item = db.query(model.Order).filter(model.Order.id == item_id).first()
+        if not item:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Id not found!")
-        item.delete(synchronize_session=False)
+        
+        # Delete all related data to prevent foreign key contraint
+        # TODO: impelment SQLAlchemy cascading for deletes
+        if item.feedback:
+            db.delete(item.feedback)
+        
+        if item.order_detail:
+            db.delete(item.order_detail)
+            
+        if item.items:
+            for order_item in item.items:
+                db.delete(order_item)
+                
+        if item.payment:
+            db.delete(item.payment)
+            
+        if item.used_promotion:
+            db.delete(item.used_promotion)
+        
+        db.delete(item)
+        
         db.commit()
     except SQLAlchemyError as e:
         error = str(e.__dict__['orig'])

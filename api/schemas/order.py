@@ -30,9 +30,9 @@ class Order(OrderBase):
     order_date: datetime
     
     feedback: Optional[Feedback]
-    order_detail: OrderDetail
+    order_detail: Optional[OrderDetail]
     items: list[OrderItem]
-    payment: Payment
+    payment: Optional[Payment]
     used_promotion: Optional[UsedPromotion]
     
     
