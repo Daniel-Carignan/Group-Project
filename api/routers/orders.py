@@ -9,6 +9,15 @@ router = APIRouter(
     prefix="/orders"
 )
 
+@router.get("/status/{item_id}", response_model=dict[str, str])
+def get_status(item_id: int, db: Session = Depends(get_db)):
+    return {
+        'status': controller.read_one(db, item_id).status
+    }
+    
+@router.get("/between_dates", response_model=list[schema.Order])
+def read_between_dates(start_date: str, end_date: str, db: Session = Depends(get_db)):
+    return controller.read_between_dates(db, start_date, end_date)
 
 @router.post("/", response_model=schema.Order)
 def create(request: schema.OrderCreate, db: Session = Depends(get_db)):
