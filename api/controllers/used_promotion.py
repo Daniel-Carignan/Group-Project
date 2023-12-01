@@ -1,6 +1,8 @@
+from datetime import datetime
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Response
 from ..models import used_promotion as model
+from ..models import promotion as promotion_model
 from sqlalchemy.exc import SQLAlchemyError
 
 
@@ -11,6 +13,10 @@ def create(db: Session, request):
     )
 
     try:
+        promotion = db.query(promotion_model.Promotion).filter(promotion_model.Promotion.id == request.promotion_id).first()
+        if promotion.expiration < datetime.now():
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Promotion expired!")
+        
         db.add(new_item)
         db.commit()
         db.refresh(new_item)
