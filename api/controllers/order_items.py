@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Response
 from ..models import order_item as model
+from ..models import dish as dish_model
+from ..models import dish_ingredient as dish_ingredient_model
 from sqlalchemy.exc import SQLAlchemyError
 
 
@@ -12,6 +14,14 @@ def create(db: Session, request):
 
     try:
         db.add(new_item)
+        
+        dish = db.query(dish_model.Dish).filter(dish_model.Dish.id == request.dish_id).first()
+        for ingredient in dish.ingredients:
+            ingredient = db.query(dish_ingredient_model.DishIngredient).filter(dish_ingredient_model.DishIngredient.id == ingredient.id)
+            if ingredient.first().quantity - ingredient.first().serving_size < 0:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Not enough ingredients!")
+            ingredient.update({"quantity": ingredient.first().quantity - ingredient.first().serving_size}, synchronize_session=False)
+        
         db.commit()
         db.refresh(new_item)
     except SQLAlchemyError as e:
