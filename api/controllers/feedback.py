@@ -6,7 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 def create(db: Session, request):
     new_item = model.Feedback(
-        order_id=request.order_id,
+        order_item_id=request.order_item_id,
         rating=request.rating,
         comments=request.comments
     )

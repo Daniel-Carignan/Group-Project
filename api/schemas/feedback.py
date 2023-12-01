@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class FeedbackBase(BaseModel):
-    order_id: int
+    order_item_id: int
     rating: int
     comments: str
 
@@ -13,7 +13,7 @@ class FeedbackCreate(FeedbackBase):
 
 
 class FeedbackUpdate(BaseModel):
-    order_id: Optional[int] = None
+    order_item_id: Optional[int] = None
     rating: Optional[int] = None
     comments: Optional[str] = None
 

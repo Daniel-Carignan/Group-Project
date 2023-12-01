@@ -10,4 +10,5 @@ class OrderItem(Base):
     order_id = Column(Integer, ForeignKey("orders.id"), nullable=False)
     dish_id = Column(Integer, ForeignKey("dishes.id"), nullable=False)
     
-    dish = relationship("Dish", backref="OrderItem")
+    dish = relationship("Dish", backref="OrderItem", uselist=False)
+    feedback = relationship("Feedback", backref="OrderItem", uselist=False)

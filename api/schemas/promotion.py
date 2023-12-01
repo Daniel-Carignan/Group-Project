@@ -1,24 +1,25 @@
+from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
 
 
 class PromotionBase(BaseModel):
-    promo_code: str
+    code: str
     discount: float
+    expiration: datetime
 
 
 class PromotionCreate(PromotionBase):
     pass
 
 class PromotionUpdate(BaseModel):
-    promo_code: Optional[str] = None
+    code: Optional[str] = None
     discount: Optional[float] = None
+    expiration: Optional[datetime] = None
 
 
 class Promotion(PromotionBase):
     id: int
-    promo_code: str
-    discount: float
 
     class ConfigDict:
         from_attributes = True

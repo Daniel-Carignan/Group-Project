@@ -6,7 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 def create(db: Session, request):
     new_item = model.Promotion(
-        promo_code=request.promo_code,
+        code=request.code,
         discount=request.discount
     )
 

@@ -1,40 +1,50 @@
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
-from .feedback import Feedback
-from .order_detail import OrderDetail
 from .order_item import OrderItem
-from .payment import Payment
-from .used_promotion import UsedPromotion
+from .promotion import Promotion
 
 
 class OrderBase(BaseModel):
-    customer_comments: Optional[str] = None
-    order_status: Optional[str] = None
-    order_total: Optional[float] = None
+    status: str
+    total: Optional[float] = 0
+    date: Optional[datetime] = datetime.now()
     
+    customer_name: str
+    customer_address: str
+    customer_email: str
+    customer_phone: str
+    customer_comments: str
+    
+    payment_information: str
+    payment_status: str
+    payment_type: str
 
 class OrderCreate(OrderBase):
-    # TODO: is feedback, detail, items etc needed here or should they be
-    # handled separately or through the ORM?
     pass
 
 
 class OrderUpdate(BaseModel):
+    customer_comments: Optional[str] = None
+    order_status: Optional[str] = None
+    order_total: Optional[float] = None
     order_date: Optional[datetime] = None
-    pass
+    
+    customer_name: Optional[str] = None
+    customer_address: Optional[str] = None
+    customer_email: Optional[str] = None
+    customer_phone: Optional[str] = None
+    
+    payment_information: Optional[str] = None
+    payment_status: Optional[str] = None
+    payment_type: Optional[str] = None
 
 
 class Order(OrderBase):
     id: int
-    order_date: datetime
     
-    feedback: Optional[Feedback]
-    order_detail: Optional[OrderDetail]
     items: list[OrderItem]
-    payment: Optional[Payment]
-    used_promotion: Optional[UsedPromotion]
-    
-    
+    promotion: Optional[Promotion]
+
     class ConfigDict:
         from_attributes = True

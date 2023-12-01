@@ -7,8 +7,16 @@ from sqlalchemy.exc import SQLAlchemyError
 def create(db: Session, request):
     new_item = model.Order(
         customer_comments=request.customer_comments,
-        order_status=request.order_status,
-        order_total=request.order_total
+        status=request.status,
+        total=request.total,
+        date=request.date,
+        customer_name=request.customer_name,
+        customer_address=request.customer_address,
+        customer_email=request.customer_email,
+        customer_phone=request.customer_phone,
+        payment_information=request.payment_information,
+        payment_status=request.payment_status,
+        payment_type=request.payment_type
     )
 
     try:
@@ -64,21 +72,12 @@ def delete(db: Session, item_id):
         
         # Delete all related data to prevent foreign key contraint
         # TODO: impelment SQLAlchemy cascading for deletes
-        if item.feedback:
-            db.delete(item.feedback)
-        
-        if item.order_detail:
-            db.delete(item.order_detail)
-            
         if item.items:
             for order_item in item.items:
                 db.delete(order_item)
-                
-        if item.payment:
-            db.delete(item.payment)
             
-        if item.used_promotion:
-            db.delete(item.used_promotion)
+        if item.promotion:
+            db.delete(item.promotion)
         
         db.delete(item)
         
