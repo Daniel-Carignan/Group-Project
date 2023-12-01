@@ -1,5 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel
+from .promotion import Promotion
 
 class UsedPromotionBase(BaseModel):
     order_id: int
@@ -16,6 +17,8 @@ class UsedPromotionUpdate(BaseModel):
 
 class UsedPromotion(UsedPromotionBase):
     id: int
+
+    promotion: Promotion
 
     class ConfigDict:
         from_attributes = True

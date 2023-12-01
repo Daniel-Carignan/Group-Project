@@ -1,6 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, DECIMAL, DATETIME
 from datetime import datetime
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.hybrid import hybrid_property
 from ..dependencies.database import Base
 
 
@@ -9,7 +10,6 @@ class Order(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     status = Column(String(255))
-    total = Column(DECIMAL(4, 2))
     date = Column(DATETIME, nullable=False, server_default=str(datetime.now()))
     
     customer_name = Column(String(255))
@@ -24,4 +24,8 @@ class Order(Base):
 
     items = relationship("OrderItem", backref="Order")
     promotion = relationship("UsedPromotion", backref="Order", uselist=False)
+    
+    @hybrid_property
+    def total(self):
+        return sum([item.dish.price for item in self.items]) - (self.promotion.promotion.discount if self.promotion else 0)
 

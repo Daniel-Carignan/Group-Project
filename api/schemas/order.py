@@ -2,12 +2,11 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
 from .order_item import OrderItem
-from .promotion import Promotion
+from .used_promotion import UsedPromotion
 
 
 class OrderBase(BaseModel):
     status: str
-    total: Optional[float] = 0
     date: Optional[datetime] = datetime.now()
     
     customer_name: str
@@ -26,9 +25,8 @@ class OrderCreate(OrderBase):
 
 class OrderUpdate(BaseModel):
     customer_comments: Optional[str] = None
-    order_status: Optional[str] = None
-    order_total: Optional[float] = None
-    order_date: Optional[datetime] = None
+    status: Optional[str] = None
+    date: Optional[datetime] = None
     
     customer_name: Optional[str] = None
     customer_address: Optional[str] = None
@@ -42,9 +40,10 @@ class OrderUpdate(BaseModel):
 
 class Order(OrderBase):
     id: int
+    total: float
     
     items: list[OrderItem]
-    promotion: Optional[Promotion]
+    promotion: Optional[UsedPromotion]
 
     class ConfigDict:
         from_attributes = True

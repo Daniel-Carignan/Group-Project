@@ -11,7 +11,7 @@ router = APIRouter(
 
 
 @router.post("/", response_model=schema.UsedPromotion)
-def create(request: schema.UsedPromotion, db: Session = Depends(get_db)):
+def create(request: schema.UsedPromotionCreate, db: Session = Depends(get_db)):
     return controller.create(db=db, request=request)
 
 

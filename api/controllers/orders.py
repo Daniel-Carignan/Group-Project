@@ -8,7 +8,6 @@ def create(db: Session, request):
     new_item = model.Order(
         customer_comments=request.customer_comments,
         status=request.status,
-        total=request.total,
         date=request.date,
         customer_name=request.customer_name,
         customer_address=request.customer_address,
