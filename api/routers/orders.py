@@ -1,3 +1,4 @@
+from datetime import date
 from fastapi import APIRouter, Depends, FastAPI, status, Response
 from sqlalchemy.orm import Session
 from ..controllers import orders as controller
@@ -18,6 +19,15 @@ def get_status(item_id: int, db: Session = Depends(get_db)):
 @router.get("/between_dates", response_model=list[schema.Order])
 def read_between_dates(start_date: str, end_date: str, db: Session = Depends(get_db)):
     return controller.read_between_dates(db, start_date, end_date)
+
+@router.get("/day_report", response_model=dict[str, int])
+def get_day_report(day = date.today(), db: Session = Depends(get_db)):
+    orders = controller.read_between_dates(db, day, day)
+    total = (sum([order.total for order in orders]))
+    return {
+        'total': total,
+        'numberOfOrders': len(orders)
+    }
 
 @router.post("/", response_model=schema.Order)
 def create(request: schema.OrderCreate, db: Session = Depends(get_db)):
