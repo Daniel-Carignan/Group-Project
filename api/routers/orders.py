@@ -22,7 +22,7 @@ def read_between_dates(start_date: str, end_date: str, db: Session = Depends(get
     return controller.read_between_dates(db, start_date, end_date)
 
 @router.get("/day_report", response_model=dict[str, int])
-def get_day_report(day = date.today(), db: Session = Depends(get_db)):
+def get_day_report(day: date = date.today(), db: Session = Depends(get_db)):
     day_start = datetime.combine(day, datetime.min.time())
     day_end = datetime.combine(day, datetime.max.time())
     orders = controller.read_between_dates(db, day_start, day_end)

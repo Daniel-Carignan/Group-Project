@@ -16,8 +16,15 @@ def db_session(mocker):
 def test_create_order(db_session):
     # Create a sample order
     order_data = {
-        "customer_name": "John Doe",
-        "description": "Test order"
+        "status": "pending",
+        "customer_name": "Test",
+        "customer_address": "Test Road",
+        "customer_email": "test@email.com",
+        "customer_phone": "123",
+        "customer_comments": "comment",
+        "payment_information": "123",
+        "payment_status": "pending",
+        "payment_type": "card"
     }
 
     order_object = model.Order(**order_data)
@@ -26,6 +33,14 @@ def test_create_order(db_session):
     created_order = controller.create(db_session, order_object)
 
     # Assertions
-    assert created_order is not None
-    assert created_order.customer_name == "John Doe"
-    assert created_order.description == "Test order"
+    assert created_order.status == order_data["status"]
+    assert created_order.customer_name == order_data["customer_name"]
+    assert created_order.customer_address == order_data["customer_address"]
+    assert created_order.customer_email == order_data["customer_email"]
+    assert created_order.customer_phone == order_data["customer_phone"]
+    assert created_order.customer_comments == order_data["customer_comments"]
+    
+    assert created_order.payment_information == order_data["payment_information"]
+    assert created_order.payment_status == order_data["payment_status"]
+    assert created_order.payment_type == order_data["payment_type"]
+    
