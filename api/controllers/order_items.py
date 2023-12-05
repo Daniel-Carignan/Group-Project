@@ -3,6 +3,7 @@ from fastapi import HTTPException, status, Response
 from ..models import order_item as model
 from ..models import dish as dish_model
 from ..models import dish_ingredient as dish_ingredient_model
+from ..models import feedback as feedback_model
 from sqlalchemy.exc import SQLAlchemyError
 
 
@@ -76,3 +77,13 @@ def delete(db: Session, item_id):
         error = str(e.__dict__['orig'])
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+def get_items_with_rating(db: Session, rating: int):
+    try:
+        result = db.query(model.OrderItem).join(feedback_model.Feedback).filter(feedback_model.Feedback.rating == rating).all()
+        if not result:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Rating not found!")
+    except SQLAlchemyError as e:
+        error = str(e.__dict__['orig'])
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
+    return result

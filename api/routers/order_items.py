@@ -9,6 +9,9 @@ router = APIRouter(
     prefix="/order_items"
 )
 
+@router.get("/with_rating", response_model=list[schema.OrderItem])
+def get_items_with_rating(rating: int, db: Session = Depends(get_db)):
+    return controller.get_items_with_rating(db, rating)
 
 @router.post("/", response_model=schema.OrderItem)
 def create(request: schema.OrderItemCreate, db: Session = Depends(get_db)):
